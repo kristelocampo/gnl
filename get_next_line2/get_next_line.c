@@ -6,7 +6,7 @@
 /*   By: kristel <kristel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:15:59 by krisocam          #+#    #+#             */
-/*   Updated: 2020/01/22 01:33:09 by kristel          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:45:44 by kristel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ int             check_file(char **tab,char **line, int fd, int ret)
         char    *tmp;
 
         i = 0;
+        tmp = NULL;
         while (tab[fd][i] && tab[fd][i] != '\n')
                 i++;
         *line = ft_substr(tab[fd], 0, i);
-        tmp = tab[fd][i] ? ft_strdup(tab[fd] + i + 1) : NULL;
+        if (!tab[fd][i])
+                tmp = NULL;
+        else if (tab[fd][i])
+                tmp = ft_strdup(tab[fd] + i + 1);
         free(tab[fd]);
         tab[fd] = tmp;
         if (ret != 0 || tab[fd])
